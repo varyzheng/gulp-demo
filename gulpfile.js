@@ -67,7 +67,7 @@ const styles = () => {
 }
 
 const pages = () => {
-  return src('src/**/*.html', { base: 'src' })
+  return src('src/*.html', { base: 'src' })
           .pipe(plugins.swig({ data, defaults: { cache: false } }))
           .pipe(dest('.temp'))
           .pipe(browserSync.reload({ stream: true }));
@@ -130,9 +130,11 @@ const build = series(
   clean,
   compile,
   useref,
-  image,
-  font,
-  extra
+  parallel(
+    image,
+    font,
+    extra
+  )
 );
 
 module.exports = {
