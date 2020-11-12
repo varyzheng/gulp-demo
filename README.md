@@ -1,153 +1,33 @@
-# pages-boilerplate
+# gulp 自动化构建demo
 
-[![Build Status][travis-image]][travis-url]
-[![Package Version][version-image]][version-url]
-[![License][license-image]][license-url]
-[![Dependency Status][dependency-image]][dependency-url]
-[![devDependency Status][devdependency-image]][devdependency-url]
-[![Code Style][style-image]][style-url]
-
-> Always a pleasure scaffolding your awesome static sites.
-
-## Getting Started
-
-```shell
-# clone repo
-$ git clone https://github.com/zce/pages-boilerplate.git my-awesome-pages
-$ cd my-awesome-pages
-# install dependencies
-$ yarn # or npm install
-```
-
-## Usage
-
-```shell
-$ yarn <task> [options]
-```
-
-### e.g.
-
-```shell
-# Runs the app in development mode
-$ yarn serve --port 5210 --open
-# Builds the app for production to the `dist` folder
-$ yarn build --production
-```
-
-### Available Scripts
-
-#### `yarn lint` or `npm run lint`
-
-Lint the styles & scripts files.
-
-#### `yarn compile` or `npm run compile`
-
-Compile the styles & scripts & pages file.
-
-#### `yarn serve` or `npm run serve`
-
-Runs the app in development mode with a automated server.
-
-##### options
-
-- `open`: Open browser on start, Default: `false`
-- `port`: Specify server port, Default: `2080`
-
-#### `yarn build` or `npm run build`
-
-Builds the app for production to the `dist` folder. It minify source in production mode for the best performance.
-
-##### options
-
-- `production`: Production mode flag, Default: `false`
-- `prod`: Alias to `production`
-
-#### `yarn start` or `npm run start`
-
-Running projects in production mode.
-
-##### options
-
-- `open`: Open browser on start, Default: `false`
-- `port`: Specify server port, Default: `2080`
-
-#### `yarn deploy` or `npm run deploy`
-
-Deploy the `dist` folder to [GitHub Pages](https://pages.github.com).
-
-##### options
-
-- `branch`: The name of the branch you'll be pushing to, Default: `'gh-pages'`
-
-#### `yarn clean` or `npm run clean`
-
-Clean the `dist` & `temp` files.
-
-## Folder Structure
-
-```
-└── my-awesome-pages ································· project root
-   ├─ public ········································· static folder
-   │  └─ favicon.ico ································· static file (unprocessed)
-   ├─ src ············································ source folder
-   │  ├─ assets ······································ assets folder
-   │  │  ├─ fonts ···································· fonts folder
-   │  │  │  └─ pages.ttf ····························· font file (imagemin)
-   │  │  ├─ images ··································· images folder
-   │  │  │  └─ logo.png ······························ image file (imagemin)
-   │  │  ├─ scripts ·································· scripts folder
-   │  │  │  └─ main.js ······························· script file (babel / uglify)
-   │  │  └─ styles ··································· styles folder
-   │  │     ├─ _variables.scss ······················· partial sass file (dont output)
-   │  │     └─ main.scss ····························· entry scss file (scss / postcss)
-   │  ├─ layouts ····································· layouts folder
-   │  │  └─ basic.html ······························· layout file (dont output)
-   │  ├─ partials ···································· partials folder
-   │  │  └─ header.html ······························ partial file (dont output)
-   │  ├─ about.html ·································· page file (use layout & partials)
-   │  └─ index.html ·································· page file (use layout & partials)
-   ├─ .csscomb.json ·································· csscomb config file
-   ├─ .editorconfig ·································· editor config file
-   ├─ .gitignore ····································· git ignore file
-   ├─ .travis.yml ···································· travis ci config file
-   ├─ CHANGELOG.md ··································· repo changelog
-   ├─ LICENSE ········································ repo license
-   ├─ README.md ······································ repo readme
-   ├─ gulpfile.js ···································· gulp tasks file
-   ├─ package.json ··································· package file
-   └─ yarn.lock ······································ yarn lock file
-```
-
-## Related
-
-- [zce/x-pages](https://github.com/zce/x-pages) - A fully managed gulp workflow for static page sites.
-
-## Contributing
-
-1. **Fork** it on GitHub!
-2. **Clone** the fork to your own machine.
-3. **Checkout** your feature branch: `git checkout -b my-awesome-feature`
-4. **Commit** your changes to your own branch: `git commit -am 'Add some feature'`
-5. **Push** your work back up to your fork: `git push -u origin my-awesome-feature`
-6. Submit a **Pull Request** so that we can review your changes.
-
-> **NOTE**: Be sure to merge the latest from "upstream" before making a pull request!
-
-## License
-
-[MIT](LICENSE) &copy; [汪磊](https://zce.me)
+项目构建主要有3个功能：
+1. 编译文件，能将浏览器无法直接运行的源代码编译为浏览器可以运行的代码，依赖模块：
+* `gulp-babel`: gulp的babel插件
+* `@babel/core`：分析代码生成抽象语法树（Abstract Syntax Tree），不对代码做改变
+* `@babel/preset-env`：会把ES6+语法编译为ES5语法，但不会做API上的支持
+* `gulp-sass`: 编译sass，scss文件
+* `gulp-swig`: 编译html文件，处理模板引擎里边的变量
 
 
+2. 内置服务器便于进行本地调试，可以实时预览项目改动，即时刷新页面，依赖模块：
+* `browser-sync`: 用于做内置服务器，处理代码和浏览器显示内容的同步
 
-[travis-image]: https://img.shields.io/travis/zce/pages-boilerplate/master.svg
-[travis-url]: https://travis-ci.org/zce/pages-boilerplate
-[version-image]: https://img.shields.io/github/package-json/v/zce/pages-boilerplate/master.svg
-[version-url]: https://github.com/zce/pages-boilerplate
-[license-image]: https://img.shields.io/github/license/zce/pages-boilerplate.svg
-[license-url]: https://github.com/zce/pages-boilerplate/blob/master/LICENSE
-[dependency-image]: https://img.shields.io/david/zce/pages-boilerplate.svg
-[dependency-url]: https://david-dm.org/zce/pages-boilerplate
-[devdependency-image]: https://img.shields.io/david/dev/zce/pages-boilerplate.svg
-[devdependency-url]: https://david-dm.org/zce/pages-boilerplate?type=dev
-[style-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
-[style-url]: http://standardjs.com
+
+3. 能对项目进行构建，并生成可以在生产环境直接使用的文件
+* `gulp-useref gulp-if`: 结合使用，对html模板中有build标记的js，css进行合并
+* `gulp-clean-css`: 压缩css
+* `gulp-htmlmin`: 压缩html
+* `gulp-uglify`: 压缩js
+* `gulp-imagemin`: 压缩图片
+
+### 公共依赖：
+* `gulp`: gulp构建的基础模块
+* `gulp-load-plugins`: 自动引入项目中安装的所有依赖模块
+* `del`: node的删除模块，可以删除指定文件夹，贯穿整个构建流程，用于清空旧代码
+
+### 构建脚本暴露了3个任务，分别是`clean`, `serve`, 和`build`。  
+
+### 总结
+1. gule任务通过管道来进行组合，每个gulp插件都返回流对象。
+2. browser-sync模块引入后可以直接`init()`，无需提前调用`create()`方法创建bs对象
+3. build任务中，图片，字体，及其他额外文件的拷贝可以并行，但必须等`compile`任务和`useref`任务完成后，否则同时向`dist`目录写文件有可能造成报错。
